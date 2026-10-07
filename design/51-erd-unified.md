@@ -911,7 +911,7 @@ CREATE EXTENSION IF NOT EXISTS pg_trgm;
 -- 회원
 CREATE TABLE member (
     id                     bigint GENERATED ALWAYS AS IDENTITY,
-    handle                 varchar(39) NOT NULL,
+    handle                 varchar(23) NOT NULL,
     nickname               varchar(10) NULL,
     nickname_changed_at    timestamptz NULL,
     bio                    varchar(200) NULL,
