@@ -53,7 +53,7 @@ erDiagram
   MEMBER ||--o{ NOTIFICATION_MUTE : "member_id / RESTRICT"
   MEMBER {
     BIGINT id PK "회원 번호"
-    VARCHAR(39) handle UK "블로그 주소"
+    VARCHAR(23) handle UK "블로그 주소"
     VARCHAR(10) nickname UK "닉네임"
     DATETIME nickname_changed_at "닉네임 변경 일자"
     VARCHAR(200) bio "소개"
@@ -252,7 +252,7 @@ erDiagram
 | 순서 | 물리명 | 논리명 | 타입(ERD Cloud 표기) | NULL | 기본값 | 키 | 참조·ON DELETE | 설명 | 출처 문서 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | id | 회원 번호 | BIGINT | 불가 | AUTO_INCREMENT | PK1 | — | PK, 자동 증가 | [03](./03-erd.md) |
-| 2 | handle | 블로그 주소 | VARCHAR(39) | 불가 | — | UQ | — | /@handle. 소문자·숫자·_ 3~36자, 소셜 가입은 go-·gi- 접두어. 가입 후 변경 불가, 탈퇴 후에도 재사용 불가 (08). 유일 | [03](./03-erd.md) |
+| 2 | handle | 블로그 주소 | VARCHAR(23) | 불가 | — | UQ | — | /@handle. 소문자·숫자·_ 3~20자, 소셜 가입은 go-·gi- 접두어, 접두어 없는 주소는 go_·gi_로 시작 불가. 가입 후 변경 불가, 탈퇴 후에도 재사용 불가 (08). 유일 | [03](./03-erd.md) |
 | 3 | nickname | 닉네임 | VARCHAR(10) | 허용 | — | UQ(lower) | — | 2~10자 한글·영문·숫자, 대소문자 무시 유일. 익명 처리 후에만 비움 (09) | [03](./03-erd.md) |
 | 4 | nickname_changed_at | 닉네임 변경 일자 | DATETIME | 허용 | — | — | — | 30일 변경 제한 판단 (09) | [03](./03-erd.md) |
 | 5 | bio | 소개 | VARCHAR(200) | 허용 | — | — | — | 0~200자, 글자만 (11) | [03](./03-erd.md) |
@@ -555,7 +555,7 @@ PK의 PostgreSQL 자동 이름은 `{테이블}_pkey`; UNIQUE/CHECK/FK는 `uq_`/`
 | --- | --- | --- | --- | --- | --- |
 | member_pkey | PK | id | PRIMARY KEY (id) | 행 식별·중복 금지 | [03](./03-erd.md) |
 | uq_member_handle | UNIQUE | handle | UNIQUE (handle) | 블로그 주소 중복 금지 | [03](./03-erd.md) |
-| ck_member_handle | CHECK | handle | CHECK (handle ~ '^((go\|gi)-)?[a-z0-9][a-z0-9_]{1,34}[a-z0-9]$') | 소셜 접두어·소문자 주소 형식 | [03](./03-erd.md) |
+| ck_member_handle | CHECK | handle | CHECK (handle ~ '^((go\|gi)-)?[a-z0-9][a-z0-9_]{1,18}[a-z0-9]$' AND handle !~ '^(go\|gi)_') | 소셜 접두어·소문자 주소 형식, 접두어 흉내 금지 | [03](./03-erd.md) |
 | ck_member_nickname | CHECK | nickname | CHECK (nickname ~ '^[가-힣a-zA-Z0-9]{2,10}$' AND nickname ~ '[가-힣a-zA-Z]') | 2~10자 한글·영문·숫자, 글자 1자 이상 | [03](./03-erd.md) |
 | ck_member_bio | CHECK | bio | CHECK (bio IS NULL OR char_length(bio) <= 200) | 소개 200자 이하 | [03](./03-erd.md) |
 | ck_member_role | CHECK | role | CHECK (role IN ('USER', 'ADMIN')) | 역할 허용값 | [03](./03-erd.md) |
@@ -926,7 +926,7 @@ CREATE TABLE member (
     deleted_at             timestamptz NULL,
     PRIMARY KEY (id),
     CONSTRAINT uq_member_handle UNIQUE (handle),
-    CONSTRAINT ck_member_handle CHECK (handle ~ '^((go|gi)-)?[a-z0-9][a-z0-9_]{1,34}[a-z0-9]$'),
+    CONSTRAINT ck_member_handle CHECK (handle ~ '^((go|gi)-)?[a-z0-9][a-z0-9_]{1,18}[a-z0-9]$' AND handle !~ '^(go|gi)_'),
     CONSTRAINT ck_member_nickname CHECK (nickname ~ '^[가-힣a-zA-Z0-9]{2,10}$' AND nickname ~ '[가-힣a-zA-Z]'),
     CONSTRAINT ck_member_bio CHECK (bio IS NULL OR char_length(bio) <= 200),
     CONSTRAINT ck_member_role CHECK (role IN ('USER', 'ADMIN')),
