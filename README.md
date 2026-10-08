@@ -1,10 +1,10 @@
 # devlog 문서
 
-개발자 블로그 서비스 **devlog**의 요구사항·설계 문서 저장소입니다. 소스코드, 기능 명세(Spec Kit `specs/`), ERD SQL, 배포 설정은 코드 저장소 **[AIGJ-01-002-blog/Devlog](https://github.com/AIGJ-01-002-blog/Devlog)** 에 있습니다.
+개발자 블로그 서비스 **devlog**의 요구사항·설계 문서 저장소입니다. 소스코드, 기능 명세(Spec Kit `specs/`), ERD SQL, 배포 설정은 코드 저장소 **[AIGJ-01-002-blog/devlog](https://github.com/AIGJ-01-002-blog/devlog)** 에 있습니다.
 
 | 저장소 | 담는 것 |
 |---|---|
-| [Devlog](https://github.com/AIGJ-01-002-blog/Devlog) | 앱(Spring Boot·React), 기능 명세 `specs/`, ERD SQL `erd/`, 배포 `deploy/`, CI·릴리스 |
+| [devlog](https://github.com/AIGJ-01-002-blog/devlog) | 앱(Spring Boot·React), 기능 명세 `specs/`, ERD SQL `erd/`, 배포 `deploy/`, CI·릴리스 |
 | docs (여기) | 사람이 읽는 요구사항·설계 문서, 설계 검증 기록 |
 
 코드 주석의 `docs/10 §2` 같은 표기는 이 저장소의 `design/10-…md` 2절을 뜻합니다.
