@@ -1,7 +1,7 @@
 # 팀 공통 ERD 통합 명세
 
 > 2026-10-07 · **기준: ERD Cloud "ai blog" 최신 상태** · 20개 테이블 / 148개 컬럼 / 40개 FK.
-> ERD Cloud 원본: [erdcloud-export.sql](../erd/erdcloud-export.sql) (PK·FK 포함 내보내기). ERD Cloud에 칸이 없는 UNIQUE·CHECK·ON DELETE·인덱스는 [V1](../erd/V1__common_schema.sql)이 기준이다. 원문 01~45는 수정하지 않는다.
+> ERD Cloud 원본: [erdcloud-export.sql](https://github.com/AIGJ-01-002-blog/Devlog/blob/main/erd/erdcloud-export.sql) (PK·FK 포함 내보내기). ERD Cloud에 칸이 없는 UNIQUE·CHECK·ON DELETE·인덱스는 [V1](https://github.com/AIGJ-01-002-blog/Devlog/blob/main/erd/V1__common_schema.sql)이 기준이다. 원문 01~45는 수정하지 않는다.
 
 표기: ERD Cloud는 `DATETIME`, PostgreSQL은 `timestamptz`; 지금 시각 기본값은 `CURRENT_TIMESTAMP`. 사건 시각의 NULL과 기본값 없음은 유지한다. `PK1, PK2`는 복합 키 순서이며, 모든 FK의 삭제 동작을 명시한다. 원문에서 생략된 삭제 동작은 팀 결정에 따라 `RESTRICT`로 쓴다. 현재 시각 기본값은 INSERT에만 적용되고 `updated_at`의 후속 갱신은 애플리케이션이 수행한다.
 

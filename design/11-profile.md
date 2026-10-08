@@ -2,7 +2,7 @@
 
 > 작성일 2026-10-02 · 관련 요구사항: C-AUTH-2(프로필 수정). 연관: [07 로그인](./07-auth.md), [08 블로그 주소](./08-blog-address.md), [09 닉네임](./09-nickname.md), [04 사진 업로드](./04-draft-and-image.md)
 > 팀 결정: 닉네임·소개·프로필 이미지를 **본인만** 수정한다. 블로그 주소(아이디)는 바꿀 수 없다.
-> 수정 2026-10-07 (회의): 회원 테이블의 사진 컬럼 삭제 → 프로필 사진은 `image` 행으로 판별(§4-4), CSP(H3), 마지막 로그인·최근 활동 표시(§6-4). 스키마 기준은 [`erd/V1__common_schema.sql`](../erd/V1__common_schema.sql)
+> 수정 2026-10-07 (회의): 회원 테이블의 사진 컬럼 삭제 → 프로필 사진은 `image` 행으로 판별(§4-4), CSP(H3), 마지막 로그인·최근 활동 표시(§6-4). 스키마 기준은 [`erd/V1__common_schema.sql`](https://github.com/AIGJ-01-002-blog/Devlog/blob/main/erd/V1__common_schema.sql)
 
 ---
 
@@ -228,7 +228,7 @@ POST /api/me/password
 
 ## 7. 스키마
 
-기준은 [`erd/V1__common_schema.sql`](../erd/V1__common_schema.sql)이다 ([03-erd.md](./03-erd.md)는 설명용).
+기준은 [`erd/V1__common_schema.sql`](https://github.com/AIGJ-01-002-blog/Devlog/blob/main/erd/V1__common_schema.sql)이다 ([03-erd.md](./03-erd.md)는 설명용).
 
 | 변경 | 내용 |
 |---|---|

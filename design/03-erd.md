@@ -1,6 +1,6 @@
 # 팀 공통 ERD (초안)
 
-> **기준 변경 (2026-10-07):** 공통 ERD의 기준은 이 문서가 아니라 **통합 ERD [51](./51-erd-unified.md) + [`erd/V1__common_schema.sql`](../erd/V1__common_schema.sql)**이다. 이 문서는 설계 결정(§2)·대표 쿼리(§4)·확장 원칙(§5·§6)의 근거로 남긴다. §2·§4·§5·§6은 2026-10-07 회의 결정에 맞춰 고쳤다. V1과 이 문서가 다르면 V1이 맞다.
+> **기준 변경 (2026-10-07):** 공통 ERD의 기준은 이 문서가 아니라 **통합 ERD [51](./51-erd-unified.md) + [`erd/V1__common_schema.sql`](https://github.com/AIGJ-01-002-blog/Devlog/blob/main/erd/V1__common_schema.sql)**이다. 이 문서는 설계 결정(§2)·대표 쿼리(§4)·확장 원칙(§5·§6)의 근거로 남긴다. §2·§4·§5·§6은 2026-10-07 회의 결정에 맞춰 고쳤다. V1과 이 문서가 다르면 V1이 맞다.
 
 > 기준: [01-common-requirements.md](./01-common-requirements.md) Tier A + B. DBMS: PostgreSQL.
 > 2026-10-02 초안은 공통 테이블 **10개**였고, 지금 통합 ERD는 **20개**다. 개인 확장은 이 테이블을 바꾸지 않고 **테이블·컬럼을 추가만** 한다.
@@ -48,7 +48,7 @@
 
 ## 3. DDL (Flyway `V1__common_schema.sql` 초안)
 
-> **2026-10-07부터 기준 DDL은 [`erd/V1__common_schema.sql`](../erd/V1__common_schema.sql)이다** (통합 명세 [51 §2·§3](./51-erd-unified.md), 회의 결정은 [01 결정 기록](./01-common-requirements.md)).
+> **2026-10-07부터 기준 DDL은 [`erd/V1__common_schema.sql`](https://github.com/AIGJ-01-002-blog/Devlog/blob/main/erd/V1__common_schema.sql)이다** (통합 명세 [51 §2·§3](./51-erd-unified.md), 회의 결정은 [01 결정 기록](./01-common-requirements.md)).
 > 여기 있던 2026-10-02 초안 DDL(10개 테이블)은 V1에 모두 흡수됐고, 그 뒤 바뀐 점은 51 §4 "03 문서와 달라진 점"에 있다. 초안 원문은 git 기록(2026-10-06 이전)에서 볼 수 있다.
 > 자동 검증(`scripts/check-ddl.sh` 등)도 이 문서가 아니라 V1을 적용한다.
 

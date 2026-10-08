@@ -16,7 +16,7 @@
 | 선택 규격 | 친구 공개 `FRIENDS`, 친구 알림 | 기본 비활성. 친구 맺기 자체는 공통 |
 | 개인 확장 | 그룹·미션·카테고리·시리즈·북마크·발행 이력 등 | 공통 기능을 유지하면서 추가하는 기능 |
 
-오래된 문장과 새 결정이 다르면 [01 결정 기록](./01-common-requirements.md)의 2026-10-07 결정을 우선했다. DB 구조는 [03의 기준 안내](./03-erd.md), [51 통합 ERD](./51-erd-unified.md), [V1 DDL](../erd/V1__common_schema.sql)을 따른다. 현재 통합 ERD는 **20개 테이블·148개 컬럼**이며, 초기 17개·139개 기준에서 변경됐다.
+오래된 문장과 새 결정이 다르면 [01 결정 기록](./01-common-requirements.md)의 2026-10-07 결정을 우선했다. DB 구조는 [03의 기준 안내](./03-erd.md), [51 통합 ERD](./51-erd-unified.md), [V1 DDL](https://github.com/AIGJ-01-002-blog/Devlog/blob/main/erd/V1__common_schema.sql)을 따른다. 현재 통합 ERD는 **20개 테이블·148개 컬럼**이며, 초기 17개·139개 기준에서 변경됐다.
 
 최신 공통 화면은 **React + REST API**, 로그인은 **Redis 세션 쿠키 + CSRF**다. 이전 문서의 SSR/JWT 자유 선택 및 JS 미사용 시 SSR 대체 문장은 현행 공통 기준으로 사용하지 않는다. 화면 색·글꼴·배치·썸네일 비율은 개인 선택이며, 표시 정보·페이지 크기·상태·문구는 공통이다.
 
@@ -404,7 +404,7 @@
 - **친구 요청/수락 알림:** 현재 공통 7종 알림과 별도로 선택 도입한다.
 - **post 수직 분할:** 글 뼈대·본문·통계 분리는 별도 제안 파일이다. 이미 3정규형인 post의 수직 분할이며 필수 기능이나 적용된 스키마로 설명하지 않는다.
 
-출처: [01](./01-common-requirements.md), [06](./06-visibility.md), [25](./25-notification.md), [51](./51-erd-unified.md), [수직 분할 제안](../erd/OPTION-post-split.sql).
+출처: [01](./01-common-requirements.md), [06](./06-visibility.md), [25](./25-notification.md), [51](./51-erd-unified.md), [수직 분할 제안](https://github.com/AIGJ-01-002-blog/Devlog/blob/main/erd/OPTION-post-split.sql).
 
 ### 10.2 팀원별 개인 확장
 
