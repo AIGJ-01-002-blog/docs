@@ -406,6 +406,8 @@
 
 출처: [01](./01-common-requirements.md), [06](./06-visibility.md), [25](./25-notification.md), [51](./51-erd-unified.md), [수직 분할 제안](https://github.com/AIGJ-01-002-blog/devlog/blob/main/erd/OPTION-post-split.sql).
 
+> devlog 확장(spec 052~067)으로 더해진 내용은 [62 devlog 확장 설계](./62-devlog-extensions-053-067.md)에 있습니다.
+
 ### 10.2 팀원별 개인 확장
 
 | 팀원 | 문서에서 확인되는 확장 기능 | 출처 |
