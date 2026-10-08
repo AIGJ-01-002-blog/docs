@@ -5,6 +5,8 @@
 
 ---
 
+> devlog 확장(spec 052~067)으로 더해진 내용은 [62 devlog 확장 설계](./62-devlog-extensions-053-067.md)에 있습니다.
+
 ## 1. 전체 구조 — 모듈러 모놀리스
 
 ```mermaid
