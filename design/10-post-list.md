@@ -178,7 +178,7 @@ GET /api/members/{handle}/posts?cursor={cursor}&size=9    ← 개인 블로그
 | 항목 | 규칙 |
 |---|---|
 | 저장 키 | 원본 `images/2026/10/{uuid}.webp`, 썸네일 `images/2026/10/{uuid}_thumb.webp` (`image.thumb_storage_key`) |
-| 카드 | `post.thumbnail_url` = 본문 **첫 번째 업로드 이미지의 썸네일** 주소 (발행할 때 지정) |
+| 카드 | `post.thumbnail_url` = 본문 **첫 번째 업로드 이미지의 썸네일** 주소 (발행할 때 지정). 작성자가 발행 창에서 사진을 직접 고르거나 없앴으면 그것을 따른다(spec 047, `post_thumbnail`) |
 | 글 상세·링크 미리보기(OG) | 원본 사용 |
 | 썸네일이 없는 옛 사진 | 원본 주소로 대체 |
 | 정리 | 버려진 사진을 지울 때 썸네일 파일도 함께 지운다 (04 §4-4) |
