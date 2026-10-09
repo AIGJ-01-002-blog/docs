@@ -51,6 +51,7 @@
 | [60](design/60-direction-ai-mcp-premium.md) | devlog 다음 방향: UI · AI · MCP · 유료 콘텐츠 |
 | [61](design/61-home-ai-ollama.md) | 집 PC AI(Ollama) 연결하기 |
 | [62](design/62-devlog-extensions-053-067.md) | devlog 확장 설계 (spec 052~067, V13~V21) |
+| [63](design/63-devlog-extensions-068-076.md) | devlog 확장 설계 (spec 068~076, V22~V26) |
 
 ## 설계 검증 (`verification/`)
 
