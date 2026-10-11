@@ -53,6 +53,7 @@
 | [62](design/62-devlog-extensions-053-067.md) | devlog 확장 설계 (spec 052~067, V13~V21) |
 | [63](design/63-devlog-extensions-068-076.md) | devlog 확장 설계 (spec 068~076, V22~V26) |
 | [64](design/64-devlog-extensions-077-083.md) | devlog 확장 설계 (spec 077~083, V27~V31) |
+| [65](design/65-devlog-extensions-084-087.md) | devlog 확장 설계 (spec 084~087, 다국어 범위 점검) |
 
 ## 설계 검증 (`verification/`)
 
