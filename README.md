@@ -45,6 +45,7 @@
 | [43](design/43-report-hide.md) | 신고·관리자 숨김 설계 |
 | [44](design/44-withdraw.md) | 회원 탈퇴·복구 화면 설계 |
 | [45](design/45-dark-mode.md) | 다크 모드 설계 |
+| [46](design/46-ui-motion.md) | 화면 움직임 설계 (spec 095) |
 | [51](design/51-erd-unified.md) | 팀 공통 ERD 통합 명세 |
 | [52](design/52-feature-summary.md) | 팀 블로그 플랫폼 기능 총정리 |
 | [53](design/53-code-quality.md) | 코드 품질 분석 (SonarQube) |
