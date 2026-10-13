@@ -55,6 +55,7 @@
 | [63](design/63-devlog-extensions-068-076.md) | devlog 확장 설계 (spec 068~076, V22~V26) |
 | [64](design/64-devlog-extensions-077-083.md) | devlog 확장 설계 (spec 077~087, V27~V31) |
 | [65](design/65-devlog-extensions-088-091.md) | devlog 확장 설계 (spec 088~091, V32~V33, 다국어 범위) |
+| [66](design/66-infra-light-benchmark.md) | 지금 구성(k3d 쿠버네티스)과 가벼운 구성(Compose) 실측 비교, 느린 원인 |
 
 ## 설계 검증 (`verification/`)
 
