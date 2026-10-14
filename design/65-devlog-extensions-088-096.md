@@ -1,6 +1,6 @@
 # devlog 확장 설계 (spec 088~096, V32~V35)
 
-작성 2026-10-11, 고침 2026-10-14 · 매일 저장소·다국어 점검. [64 devlog 확장 설계](./64-devlog-extensions-077-083.md)(spec 077~087)에 이어, 그 뒤 devlog에서 공통 설계(테이블·API·구조·권한)를 바꾼 기능만 모았습니다. 화면 움직임(spec 095)은 [46 화면 움직임 설계](./46-ui-motion.md)에 따로 있습니다. 기능의 세부 규칙과 화면은 코드 저장소의 기능 명세 `specs/NNN-*`이 기준입니다.
+작성 2026-10-11, 고침 2026-10-14 · 매일 저장소·다국어 점검. [64 devlog 확장 설계](./64-devlog-extensions-077-083.md)(spec 077~087)에 이어, 그 뒤 devlog에서 공통 설계(테이블·API·구조·권한)를 바꾼 기능만 모았습니다. 화면 움직임(spec 095)은 [46 화면 움직임 설계](./46-ui-motion.md)에 따로 있습니다. 기능의 세부 규칙과 화면은 코드 저장소의 기능 명세 `specs/NNN-*`이 기준입니다. v1.68.0 이후(spec 092·097~100, V36~V46)는 [67](./67-devlog-extensions-092-100.md)에 이어집니다.
 
 근거: [devlog CHANGELOG](https://github.com/AIGJ-01-002-blog/devlog/blob/develop/CHANGELOG.md) v1.65.0~v1.67.0, 마이그레이션 V32~V35. v1.67.0은 목표 단위 Git Flow로 낸 첫 릴리스입니다([목표 #169](https://github.com/AIGJ-01-002-blog/devlog/issues/169)).
 
