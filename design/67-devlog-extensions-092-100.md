@@ -2,7 +2,7 @@
 
 작성 2026-10-15 · 매일 저장소·다국어 점검. [65 devlog 확장 설계](./65-devlog-extensions-088-096.md)(spec 088~096, V32~V35)에 이어, v1.68.0부터 devlog에서 공통 설계(테이블·API·구조·권한)를 바꾼 기능만 모았습니다. 기능의 세부 규칙과 화면은 코드 저장소의 기능 명세 `specs/NNN-*`이 기준입니다. 기능별 그림은 [70 기능별 아키텍처](./70-feature-architecture.md)(v1.69.0 기준)에 있습니다.
 
-근거: [devlog CHANGELOG](https://github.com/AIGJ-01-002-blog/devlog/blob/develop/CHANGELOG.md) v1.68.0~v2.0.0과 `[Unreleased]`(목표 v2.1.0 [#253](https://github.com/AIGJ-01-002-blog/devlog/issues/253)), 마이그레이션 V36~V46. main에는 V39까지, develop에는 V46까지 들어 있습니다.
+근거: [devlog CHANGELOG](https://github.com/AIGJ-01-002-blog/devlog/blob/develop/CHANGELOG.md) v1.68.0~v2.1.0(목표 v2.1.0 [#253](https://github.com/AIGJ-01-002-blog/devlog/issues/253)), 마이그레이션 V36~V46. v2.1.0 릴리스로 V46까지 main에 들어갔습니다. 그 뒤(spec 101~102, V47~V52)는 [68](./68-devlog-extensions-101-102.md)에 이어집니다.
 
 ## 1. 기능별로 바뀐 공통 설계
 
@@ -12,9 +12,9 @@
 | 097 | 글 읽기 경험 다듬기 | 1.69.0 | 없음 | 없음(앱 404 화면은 화면 경로에만) | 최근 읽은 글·최근 검색어는 이 기기 저장소에만 둠. 공개 글에 `twitter:card`·JSON-LD BlogPosting. 렌더링 규칙 버전 4 |
 | 098 | 첫 로그인 AI 연결 안내 | 1.70.0 | 없음 | 없음 | 닫았음은 브라우저에 회원별 키 `devlog.ai-onboarding.done.{회원번호}`로만 기억(서버 저장 없음) |
 | 099 | 쇼츠 스튜디오 | 2.0.0 | `shorts`, `shorts_render_request` (V36), `shorts_upload` (V37), `shorts_batch` (V42) | `/api/me/shorts`(목록·만들기·고치기·지우기), `POST /api/me/shorts/{id}/check`(양산형 검사), `POST /api/me/shorts/{id}/render`, `PUT·DELETE /api/me/shorts/{id}/uploads/{platform}`, `/api/me/shorts/batches`, 렌더 워커 `POST /api/render/jobs/claim`·`PUT /api/render/jobs/{id}/video`·`POST /api/render/jobs/{id}/fail` | `SHORTS_ENABLED`(기본 꺼짐). 영상은 집 컴퓨터의 렌더 워커가 대기열에서 가져가 만들고(`claim_token`), SNS에는 사람이 직접 올림(자동 업로드 없음). MCP `create_shorts_script`·`update_shorts_script`·`list_shorts`·`plan_shorts` |
-| 매매 일지 | 코인 매매 기록 | 2.0.0 (V39), develop (V40·V41) | `trade`, `trade_day` (V39), 거래소·통화 (V40), 선물 (V41) | `GET /api/me/trades`, `GET /api/me/trades/{date}`, `PUT …/{date}/memo`, `POST …/{date}/draft`, `POST …/{date}/shorts`, `DELETE /api/me/trades/fills/{id}` | `TRADES_ENABLED`(기본 꺼짐). 매매 봇이 쓰기 토큰으로 MCP `record_trade`를 부름. 거래소 키는 devlog에 두지 않음. 통화가 다르면 합치지 않고 따로 보여 줌 |
+| 매매 일지 | 코인 매매 기록 | 2.0.0 (V39), 2.1.0 (V40·V41) | `trade`, `trade_day` (V39), 거래소·통화 (V40), 선물 (V41) | `GET /api/me/trades`, `GET /api/me/trades/{date}`, `PUT …/{date}/memo`, `POST …/{date}/draft`, `POST …/{date}/shorts`, `DELETE /api/me/trades/fills/{id}` | `TRADES_ENABLED`(기본 꺼짐). 매매 봇이 쓰기 토큰으로 MCP `record_trade`를 부름. 거래소 키는 devlog에 두지 않음. 통화가 다르면 합치지 않고 따로 보여 줌 |
 | AI 메모 근거 | 일지·메모 links | 2.0.0 | `ai_note.links` (V38) | MCP `write_devlog`·`create_draft`·`add_note`의 `links` | 일지는 본문 끝 `## 근거`, 일기는 주제 문단 아래에 붙임 |
-| 100 | 블로그 포인트 | develop (목표 v2.1.0) | `point_ledger`·`point_attendance`·`point_badge`·`point_rule` (V43), `shop_item`·`member_item`·`member_decoration` (V44), `paper_position`·`paper_order` (V45), `point_outbox` (V46) | `GET /api/me/points`·`/history`·`/today`, `POST /api/me/points/attendance`, `GET /api/shop`, `POST /api/shop/items/{id}/purchase`, `PUT·DELETE /api/me/decorations/…`, `GET /api/members/{handle}/badges`·`/decorations`, `GET /api/me/paper`, `POST /api/me/paper/orders`, 관리자 `/api/admin/points/rules`·`/api/admin/shop/items` | `POINTS_ENABLED`(기본 꺼짐). 지갑 두 개: 첫 지급은 투자 전용(`INVEST_ONLY`), 출석·글·모의투자 수익은 상점(`SHOP`, 화면 이름 "크레딧"). 포인트는 현금으로 바꾸지 않음. 글 보상은 outbox로 나중에 적립 |
+| 100 | 블로그 포인트 | 2.1.0 | `point_ledger`·`point_attendance`·`point_badge`·`point_rule` (V43), `shop_item`·`member_item`·`member_decoration` (V44), `paper_position`·`paper_order` (V45), `point_outbox` (V46) | `GET /api/me/points`·`/history`·`/today`, `POST /api/me/points/attendance`, `GET /api/shop`, `POST /api/shop/items/{id}/purchase`, `PUT·DELETE /api/me/decorations/…`, `GET /api/members/{handle}/badges`·`/decorations`, `GET /api/me/paper`, `POST /api/me/paper/orders`, 관리자 `/api/admin/points/rules`·`/api/admin/shop/items` | `POINTS_ENABLED`(기본 꺼짐). 지갑 두 개: 첫 지급은 투자 전용(`INVEST_ONLY`), 출석·글·모의투자 수익은 상점(`SHOP`, 화면 이름 "크레딧"). 포인트는 현금으로 바꾸지 않음. 글 보상은 outbox로 나중에 적립 |
 
 v1.70.0의 하이브리드 검색 되살리기·닉네임 바로 확인, v2.0.0의 내 대시보드·집 컴퓨터로 옮기기(`deploy/home/`)는 테이블을 바꾸지 않았습니다.
 
