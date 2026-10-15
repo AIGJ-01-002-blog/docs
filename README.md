@@ -57,6 +57,7 @@
 | [65](design/65-devlog-extensions-088-096.md) | devlog 확장 설계 (spec 088~096, V32~V35, 다국어 범위) |
 | [66](design/66-infra-light-benchmark.md) | 지금 구성(k3d 쿠버네티스)과 가벼운 구성(Compose) 실측 비교, 느린 원인 |
 | [67](design/67-devlog-extensions-092-100.md) | devlog 확장 설계 (spec 092·097~100, V36~V46: 쇼츠·매매 일지·포인트) |
+| [68](design/68-devlog-extensions-101-102.md) | devlog 확장 설계 (spec 101~102, V47~V52: 자동매매 모의 화면·서버 모의 봇·지정가 주문) |
 | [70](design/70-feature-architecture.md) | 기능별 아키텍처: 23개 기능의 구성·흐름 그림과 설명 (v1.69.0 기준, 팀 설명회용) |
 
 ## 설계 검증 (`verification/`)
