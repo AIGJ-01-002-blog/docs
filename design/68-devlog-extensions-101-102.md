@@ -1,8 +1,8 @@
 # devlog 확장 설계 (spec 101~102, V47~V52)
 
-작성 2026-10-16 · 매일 저장소·다국어 점검. [67 devlog 확장 설계](./67-devlog-extensions-092-100.md)(spec 092·097~100, V36~V46)에 이어, v2.1.0부터 공통 설계(테이블·API·구조·권한)를 바꾼 기능만 모았습니다. 기능의 세부 규칙과 화면은 코드 저장소의 기능 명세 `specs/NNN-*`이 기준입니다.
+작성 2026-10-16, 고침 2026-10-16(v2.2.1) · 매일 저장소·다국어 점검. [67 devlog 확장 설계](./67-devlog-extensions-092-100.md)(spec 092·097~100, V36~V46)에 이어, v2.1.0부터 공통 설계(테이블·API·구조·권한)를 바꾼 기능만 모았습니다. 기능의 세부 규칙과 화면은 코드 저장소의 기능 명세 `specs/NNN-*`이 기준입니다.
 
-근거: [devlog CHANGELOG](https://github.com/AIGJ-01-002-blog/devlog/blob/develop/CHANGELOG.md) v2.1.0~v2.1.3과 `[Unreleased]`(목표 v2.2.0 [#282](https://github.com/AIGJ-01-002-blog/devlog/issues/282)), 마이그레이션 V47~V52. main(v2.1.3)에는 V50까지, develop에는 V52까지 들어 있습니다.
+근거: [devlog CHANGELOG](https://github.com/AIGJ-01-002-blog/devlog/blob/develop/CHANGELOG.md) v2.1.0~v2.2.1(목표 v2.2.0 [#282](https://github.com/AIGJ-01-002-blog/devlog/issues/282)), 마이그레이션 V47~V52. v2.2.0 릴리스로 V52까지 main에 들어갔고, v2.2.1 뒤 새 마이그레이션은 없습니다.
 
 ## 1. 기능별로 바뀐 공통 설계
 
@@ -10,9 +10,9 @@
 |---|---|---|---|---|---|
 | 099 갱신 | 매매 재현 숏폼 | 2.1.0 | `shorts.replay` (V47) | `POST /api/me/shorts/replay`, `POST /api/me/trades/{date}/shorts` | 매매 일지 체결(같은 거래소·종목 1~6개)로 대본을 만들고, 렌더 워커가 실시간 매매처럼 그림 |
 | 101 | 자동매매 모의 화면 `/trade` | 2.1.0 | `trade_bot_status`, `trade_bot_account`, `trade_bot_event` (V48) | `GET /api/me/trade-bot`, `GET /api/me/trade-bot/charts`, MCP `report_trade_bot` | 봇이 알린 모의 계좌·체결·Gemini 판단·하루 요약을 보기만 함. 화면에 주문 버튼 없음. 모의 기록은 운영 매매 일지(`trade`)와 나눔 |
-| 102 | 서버가 돌리는 모의 봇 | 2.1.1 | `trade_paper_bot` (V49) | `GET·PUT /api/me/trade-bot/paper` `{enabled}` | 켠 회원만 5분마다 돎(JobLock으로 서버 한 대). 거래소 공개 시세만 쓰고 키를 맡지 않음. 시세는 (거래소, 봉)마다 한 번 받아 함께 씀. 결과는 101 표에 계좌 `server-paper-<거래소>-spot-1h`로 남김 |
-| 099 갱신 | 쇼츠 캐릭터·끝 광고 | 2.1.1, develop | `shorts.mascot` (V50), `shorts.outro` (V51) | MCP `create_shorts_script`·`update_shorts_script`의 캐릭터 값 | 대본마다 캐릭터를 고름. 끝 3초 블로그 광고는 기본 켬 |
-| 100 갱신 | 크레딧 모의투자 지정가 주문 | develop | `paper_limit_order` (V52) | `POST /api/me/paper/limit-orders`, `DELETE /api/me/paper/limit-orders/{id}`, `GET /api/me/paper/chart` | 주문할 때 금액을 지갑별(`locked_invest`·`locked_shop`)로 묶어 두고, 체결·취소 때 풂. 같은 회원의 `client_order_id`는 겹치지 않음(중복 주문 방지) |
+| 102 | 서버가 돌리는 모의 봇 | 2.1.1, 2.2.0 | `trade_paper_bot` (V49) | `GET·PUT /api/me/trade-bot/paper` `{enabled}` | 켠 회원만 5분마다 돎(JobLock으로 서버 한 대). 거래소 공개 시세만 쓰고 키를 맡지 않음. 시세는 (거래소, 봉)마다 한 번 받아 함께 씀. 결과는 101 표에 계좌 `server-paper-<거래소>-spot-1h`로 남김. v2.2.0부터 회원마다 기준(코인·봉·손절·익절·한 번 금액)을 고르고, 원화·바이낸스 계좌 모두 회원의 기본 크레딧(1크레딧 = 1원)으로 사고팜(상점 크레딧은 쓰지 않음) |
+| 099 갱신 | 쇼츠 캐릭터·끝 광고 | 2.1.1, 2.2.0 | `shorts.mascot` (V50), `shorts.outro` (V51) | MCP `create_shorts_script`·`update_shorts_script`의 캐릭터 값 | 대본마다 캐릭터를 고름. 끝 3초 블로그 광고는 기본 켬 |
+| 100 갱신 | 크레딧 모의투자 지정가 주문 | 2.2.0, 2.2.1 | `paper_limit_order` (V52) | `POST /api/me/paper/limit-orders`, `DELETE /api/me/paper/limit-orders/{id}`, `GET /api/me/paper/chart` | 주문할 때 금액을 지갑별(`locked_invest`·`locked_shop`)로 묶어 두고, 체결·취소 때 풂. 같은 회원의 `client_order_id`는 겹치지 않음(중복 주문 방지). v2.2.1부터 수량×가격·수량이 1조를 넘으면 거절하고 금액 계산이 넘치면 실패 |
 
 v2.1.2(쇼츠 영상 공개 경로 `shorts/*`)와 v2.1.3(모의투자 시세를 코빗 공개 시세로 받기)은 테이블을 바꾸지 않았습니다. 시세 출처는 업비트에서 코빗(`/v2/tickers`, `/v2/candles`, 키 없음)으로 바뀌었습니다.
 
