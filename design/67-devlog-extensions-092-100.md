@@ -2,7 +2,7 @@
 
 작성 2026-10-15 · 매일 저장소·다국어 점검. [65 devlog 확장 설계](./65-devlog-extensions-088-096.md)(spec 088~096, V32~V35)에 이어, v1.68.0부터 devlog에서 공통 설계(테이블·API·구조·권한)를 바꾼 기능만 모았습니다. 기능의 세부 규칙과 화면은 코드 저장소의 기능 명세 `specs/NNN-*`이 기준입니다. 기능별 그림은 [70 기능별 아키텍처](./70-feature-architecture.md)(v1.69.0 기준)에 있습니다.
 
-근거: [devlog CHANGELOG](https://github.com/AIGJ-01-002-blog/devlog/blob/develop/CHANGELOG.md) v1.68.0~v2.1.0(목표 v2.1.0 [#253](https://github.com/AIGJ-01-002-blog/devlog/issues/253)), 마이그레이션 V36~V46. v2.1.0 릴리스로 V46까지 main에 들어갔습니다. 그 뒤(spec 101~102, V47~V53)는 [68](./68-devlog-extensions-101-102.md)에 이어집니다.
+근거: [devlog CHANGELOG](https://github.com/AIGJ-01-002-blog/devlog/blob/develop/CHANGELOG.md) v1.68.0~v2.1.0(목표 v2.1.0 [#253](https://github.com/AIGJ-01-002-blog/devlog/issues/253)), 마이그레이션 V36~V46. v2.1.0 릴리스로 V46까지 main에 들어갔습니다. 그 뒤(spec 101~102, V47~V55)는 [68](./68-devlog-extensions-101-102.md)에 이어집니다.
 
 ## 1. 기능별로 바뀐 공통 설계
 
