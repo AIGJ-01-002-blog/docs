@@ -1,8 +1,8 @@
-# devlog 확장 설계 (spec 101~102, V47~V52)
+# devlog 확장 설계 (spec 101~102, V47~V53)
 
-작성 2026-10-16, 고침 2026-10-16(v2.2.1) · 매일 저장소·다국어 점검. [67 devlog 확장 설계](./67-devlog-extensions-092-100.md)(spec 092·097~100, V36~V46)에 이어, v2.1.0부터 공통 설계(테이블·API·구조·권한)를 바꾼 기능만 모았습니다. 기능의 세부 규칙과 화면은 코드 저장소의 기능 명세 `specs/NNN-*`이 기준입니다.
+작성 2026-10-16, 고침 2026-10-16(v2.2.1)·2026-10-17(v2.3.0) · 매일 저장소·다국어 점검. [67 devlog 확장 설계](./67-devlog-extensions-092-100.md)(spec 092·097~100, V36~V46)에 이어, v2.1.0부터 공통 설계(테이블·API·구조·권한)를 바꾼 기능만 모았습니다. 기능의 세부 규칙과 화면은 코드 저장소의 기능 명세 `specs/NNN-*`이 기준입니다.
 
-근거: [devlog CHANGELOG](https://github.com/AIGJ-01-002-blog/devlog/blob/develop/CHANGELOG.md) v2.1.0~v2.2.1(목표 v2.2.0 [#282](https://github.com/AIGJ-01-002-blog/devlog/issues/282)), 마이그레이션 V47~V52. v2.2.0 릴리스로 V52까지 main에 들어갔고, v2.2.1 뒤 새 마이그레이션은 없습니다.
+근거: [devlog CHANGELOG](https://github.com/AIGJ-01-002-blog/devlog/blob/develop/CHANGELOG.md) v2.1.0~v2.3.0(목표 v2.2.0 [#282](https://github.com/AIGJ-01-002-blog/devlog/issues/282), v2.3.0 [#344](https://github.com/AIGJ-01-002-blog/devlog/issues/344)), 마이그레이션 V47~V53. v2.3.0 릴리스로 V53까지 main에 들어갔습니다.
 
 ## 1. 기능별로 바뀐 공통 설계
 
@@ -13,10 +13,12 @@
 | 102 | 서버가 돌리는 모의 봇 | 2.1.1, 2.2.0 | `trade_paper_bot` (V49) | `GET·PUT /api/me/trade-bot/paper` `{enabled}` | 켠 회원만 5분마다 돎(JobLock으로 서버 한 대). 거래소 공개 시세만 쓰고 키를 맡지 않음. 시세는 (거래소, 봉)마다 한 번 받아 함께 씀. 결과는 101 표에 계좌 `server-paper-<거래소>-spot-1h`로 남김. v2.2.0부터 회원마다 기준(코인·봉·손절·익절·한 번 금액)을 고르고, 원화·바이낸스 계좌 모두 회원의 기본 크레딧(1크레딧 = 1원)으로 사고팜(상점 크레딧은 쓰지 않음) |
 | 099 갱신 | 쇼츠 캐릭터·끝 광고 | 2.1.1, 2.2.0 | `shorts.mascot` (V50), `shorts.outro` (V51) | MCP `create_shorts_script`·`update_shorts_script`의 캐릭터 값 | 대본마다 캐릭터를 고름. 끝 3초 블로그 광고는 기본 켬 |
 | 100 갱신 | 크레딧 모의투자 지정가 주문 | 2.2.0, 2.2.1 | `paper_limit_order` (V52) | `POST /api/me/paper/limit-orders`, `DELETE /api/me/paper/limit-orders/{id}`, `GET /api/me/paper/chart` | 주문할 때 금액을 지갑별(`locked_invest`·`locked_shop`)로 묶어 두고, 체결·취소 때 풂. 같은 회원의 `client_order_id`는 겹치지 않음(중복 주문 방지). v2.2.1부터 수량×가격·수량이 1조를 넘으면 거절하고 금액 계산이 넘치면 실패 |
+| 099·101 갱신 (spec 없음) | 봇 판단 흔적과 복기 | 2.3.0 | `trade`에 판단 흔적 열 22개, `reason` 2000자 (V53) | MCP `record_trade`의 선택 입력(기법 버전·판단 키·바구니·장세·셋업·방아쇠·위험 비율·손절·익절·정리 이유·R배수 등), MCP `get_trade_day` 응답 | 같은 판단 키(`decision_id`)의 진입·정리 체결을 한 포지션으로 묶음(부분 인덱스 `ix_trade_decision`). 비밀값이 든 이유는 남기지 않음. 판단 원본(뉴스 원문·AI 입력)은 봇 로컬 DB에만 둠 |
+| 102 갱신 | 서버 모의 봇 USDT·3배 선물 | 2.3.0 | 없음 | `GET /api/me/trade-bot/charts` 응답에 `source`, 모의투자 응답에 `quotesSource` | 바이낸스 계좌는 기본 크레딧을 그때 환율(코빗 USDT-KRW)로 USDT로 바꿔 현물·3배 선물(롱·숏)을 돌리고, 정리할 때 되돌림. 한 번 금액 범위는 설정 `blog.trades.bot-budget` |
 
 v2.1.2(쇼츠 영상 공개 경로 `shorts/*`)와 v2.1.3(모의투자 시세를 코빗 공개 시세로 받기)은 테이블을 바꾸지 않았습니다. 시세 출처는 업비트에서 코빗(`/v2/tickers`, `/v2/candles`, 키 없음)으로 바뀌었습니다.
 
-## 2. ERD에 더해진 테이블·컬럼 (V47~V52)
+## 2. ERD에 더해진 테이블·컬럼 (V47~V53)
 
 | 테이블·컬럼 | 마이그레이션 | 핵심 |
 |---|---|---|
@@ -28,6 +30,7 @@ v2.1.2(쇼츠 영상 공개 경로 `shorts/*`)와 v2.1.3(모의투자 시세를 
 | `shorts.mascot` | V50 | varchar(20) NULL. 비우면 기본 캐릭터 |
 | `shorts.outro` | V51 | boolean, 기본 true |
 | `paper_limit_order` | V52 | 상태 `OPEN`·`FILLED`·`CANCELED`, `BUY`·`SELL`, 가격·수량 > 0, 묶은 금액 ≥ 0. 체결되면 `trade_id`를 남김 |
+| `trade` 판단 흔적 열 | V53 | 모두 선택 값. `basket` `CORE`·`TRADING`, `exit_reason` `STOP`·`TP1`·`TP2`·`TRAIL`·`TIME`·`NEWS`·`MANUAL`, 비율(`risk_pct`·`kelly_raw`·`kelly_used`·`ai_conf`)은 0~1, 청산가·펀딩비는 선물 체결에만 |
 
 ## 3. 다국어 범위 (2026-10-16 점검)
 
